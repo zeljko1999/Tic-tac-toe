@@ -1,0 +1,12 @@
+.board{
+    width: 240px;
+}
+
+.field{
+    width: 60px;
+    height: 100px;
+}
+
+.player{
+    font-size: 100px;
+}

@@ -75,6 +75,7 @@ const player = sign => {
 
 const game = (() => {
   let running = true
+  const round = 0
   const gameOver = () => {
     running = !running
   }
@@ -86,7 +87,7 @@ const game = (() => {
       player1.isTurn = 1
     }
   }
-  return { startGame, gameOver, readyToPlay }
+  return { startGame, gameOver, readyToPlay, round }
 })()
 
 for (let i = 0; i < buttons.length; i++) {
@@ -101,16 +102,18 @@ for (let i = 0; i < buttons.length; i++) {
         playerY.isTurn = 1
       } else if (playerY.isTurn === 1) {
         currentTurnText.textContent = 'Player X Turn'
-        child.textContent = 'Y'
+        child.textContent = 'O'
         gameBoard.board[i] = 'Y'
         playerY.isTurn = 0
         playerX.isTurn = 1
       }
       if (gameBoard.gameOver() === 'X won') {
+        currentTurnText.textContent = 'Player X WON !!'
         game.gameOver()
         playerX.win()
         playerXScore.textContent = `PLAYER X: ${playerX.getScore()}`
       } else if (gameBoard.gameOver() === 'Y won') {
+        currentTurnText.textContent = 'Player Y WON !!'
         game.gameOver()
         playerY.win()
         playerYScore.textContent = `PLAYER Y: ${playerY.getScore()}`
@@ -122,15 +125,32 @@ for (let i = 0; i < buttons.length; i++) {
 restartButton.addEventListener('click', function () {
   gameBoard.resetBoard()
   gameBoard.drawBoard()
+  if ((game.round % 2) === 1 && game.round !== 0) {
+    playerY.isTurn = 0
+    playerX.isTurn = 1
+    currentTurnText.textContent = 'Player X Turn'
+    game.round++
+  } else {
+    playerX.isTurn = 0
+    playerY.isTurn = 1
+    currentTurnText.textContent = 'Player Y Turn'
+    game.round++
+  }
   if (game.readyToPlay() !== 1) { game.gameOver() }
 })
 
 resetScore.addEventListener('click', function () {
   playerX.resetScore()
   playerY.resetScore()
+  gameBoard.resetBoard()
+  gameBoard.drawBoard()
   playerXScore.textContent = `PLAYER X: ${playerX.getScore()}`
   playerYScore.textContent = `PLAYER Y: ${playerY.getScore()}`
   currentTurnText.textContent = 'Player X Turn'
+  game.round = 0
+  playerX.isTurn = 1
+  playerY.isTurn = 0
+  if (game.readyToPlay() !== 1) { game.gameOver() }
 })
 
 gameBoard.drawBoard()

@@ -1,12 +1,60 @@
 .board{
-    width: 240px;
+    width: 500px;
+    height: 500px;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
 }
 
 .field{
-    width: 60px;
-    height: 100px;
+    background-color:rgba(214, 17, 17, 0.4)
 }
 
 .player{
     font-size: 100px;
+}
+.current-turn{
+    font-size: 100px;
+}
+
+.playerXScore{
+    font-size: 80px
+}
+.playerYScore{
+    font-size: 80px
+}
+body{
+    width:100vw; 
+    background-color: rgba(12, 7, 36, 0.4)
+}
+p{
+    padding:0;
+    margin:0;
+    font-size: 60px;
+}
+.wrapper{
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    text-align:center;
+    wrap:nowrap;
+    gap: 15px;
+}
+html {
+    width: 100vw;
+}
+
+.XO{
+    padding:0;
+    margin:0;
+}
+
+.buttons button {
+    background-color:rgba(214, 17, 17, 0.7);
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 40px;
+}
+button:hover{
+    cursor:pointer
 }
